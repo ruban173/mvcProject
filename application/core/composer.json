@@ -1,0 +1,20 @@
+{
+    "name": "ruban/core",
+    "type": "project",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Alexandr Ruban",
+            "email": "ruban1703@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "": "../core"
+        }
+    }
+}
