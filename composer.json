@@ -1,20 +1,20 @@
 {
-    "name": "ruban/core",
+    "name": "vendor/loader",
+    "description": "autoloader classes",
     "type": "project",
     "license": "GNU",
     "authors": [
         {
-            "name": "Alexandr Ruban",
+            "name": "alex",
             "email": "ruban1703@gmail.com"
         }
     ],
     "minimum-stability": "stable",
-    "require": {
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "":"app"
 
-    },
-    "autoload": {
-        "psr-4": {
-            "": "../core"
         }
     }
 }
