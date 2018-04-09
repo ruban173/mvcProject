@@ -31,11 +31,10 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
+
+    <a class="btn btn-outline-light my-2 my-sm-0" style="margin-right: 15px;" href="/default/login" role="button">Войти</a>
+    <a class="btn btn-outline-light my-2 my-sm-0" href="/default/register" role="button">Регистрация</a>
 </nav>
 <div class="container">
 

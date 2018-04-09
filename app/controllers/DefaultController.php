@@ -13,5 +13,21 @@ class DefaultController extends Controller
         $this->render('default/index');
 
     }
+    function loginAction(){
+
+        $this->render('default/login');
+
+    }
+
+    function registerAction(){
+
+        $this->render('default/register');
+
+    }
+    function logoutAction(){
+
+        $this->render('default/index');
+
+    }
 
 }
