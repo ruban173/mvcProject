@@ -18,8 +18,8 @@
 </form>
 
 <?
-$user=new User;
-$user->first_name="Алексей";
+//$user=new User();
+/*$user->first_name="Алексей";
 $user->middle_name="Николаевич";
 $user->last_name="Форкин";
 $user->email="email@email.ru";
@@ -27,12 +27,22 @@ $user->type="user";
 $user->password="123456";
 $user->double_password="123456";
 $user->foto="foto";
-$user->status="Активен";
+$user->status="Активен";*/
 
-print_r($user->validate());
-print_r($user->errorMessages);
-//$user->create();
-//print_r(new User());
+$user=new LoginForm;
+$user->email="email@email.ru";
+
+$user->password="123456";
+$user->_remembe=true;
+print_r($user->login());
+
+//print_r($user->validate());
+
+//print_r($user->errorMessages);
+
+  //  $user->create();
+
+
 
 //print_r(Config::getInstance()->getParams('db'));
 

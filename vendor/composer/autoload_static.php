@@ -11,16 +11,21 @@ class ComposerStaticInit0789811d2f805f121d4d5862f85465b7
     );
 
     public static $classMap = array (
+        'App' => __DIR__ . '/../..' . '/app/lib/App.php',
         'Config' => __DIR__ . '/../..' . '/app/lib/Config.php',
         'Controller' => __DIR__ . '/../..' . '/app/core/Controller.php',
         'DB' => __DIR__ . '/../..' . '/app/lib/DB.php',
         'DefaultController' => __DIR__ . '/../..' . '/app/controllers/DefaultController.php',
+        'Form' => __DIR__ . '/../..' . '/app/models/forms/Form.php',
         'FrontController' => __DIR__ . '/../..' . '/app/core/FrontController.php',
         'IController' => __DIR__ . '/../..' . '/app/core/IController.php',
+        'LoginForm' => __DIR__ . '/../..' . '/app/models/forms/LoginForm.php',
         'Models' => __DIR__ . '/../..' . '/app/core/Models.php',
+        'RegisterForm' => __DIR__ . '/../..' . '/app/models/forms/RegisterForm.php',
         'SiteController' => __DIR__ . '/../..' . '/app/controllers/SiteController.php',
         'Test' => __DIR__ . '/../..' . '/app/core/Test.php',
-        'User' => __DIR__ . '/../..' . '/app/models/User.php',
+        'User' => __DIR__ . '/../..' . '/app/models/entities/User.php',
+        'Validation' => __DIR__ . '/../..' . '/app/lib/Validation.php',
         'Views' => __DIR__ . '/../..' . '/app/core/Views.php',
     );
 

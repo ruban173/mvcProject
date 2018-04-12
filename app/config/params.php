@@ -3,7 +3,7 @@
 return [
     'db'=>[
         'host'=>'localhost',
-        'user'=>'root',
+        'user' =>'root',
         'password'=>'',
         'base'=>'mvc'
     ]

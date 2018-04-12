@@ -11,9 +11,7 @@ class User
    public $double_password;
    public $foto;
 
-   public $errorMessages;
-
-   private $db;
+    private $db;
 
    const TABLE="users";
 
@@ -21,7 +19,11 @@ class User
    {
        try{
            $db=Config::getInstance()->getParams('db');
-           $this->db=new PDO("mysql:host=$db[host];dbname=$db[base]", $db[user], $db[password]);
+           $this->db=new PDO("mysql:host=$db[host];dbname=$db[base]", $db[user], $db[password],$opt = [
+               PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+               PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+               PDO::ATTR_EMULATE_PREPARES   => false,
+           ]);
        }
        catch (PDOException $e){
            echo $e->getMessage();
@@ -29,32 +31,7 @@ class User
 
    }
 
-   public function validate(){
-       $this->errorMessages=[
-           'first_name'=>(strlen($this->first_name)==0)?
-                    "Введите имя":(!is_string($this->first_name))?
-                    "Не является строкой":true,
-           'middle_name'=>(strlen($this->middle_name)==0)?
-                    "Введите отчество":(!is_string($this->first_name))?
-                   "Не является строкой":true,
-           'last_name'=>(strlen($this->last_name)==0)?
-                   "Введите фимилию":(!is_string($this->first_name))?
-                   "Не является строкой":true,
-           'email'=>(strlen($this->email)==0)?
-                    "Введите email":(!filter_var($this->email,FILTER_VALIDATE_EMAIL))?
-                    "Не является email":true,
-           'password'=>(strlen($this->password)==0)?
-                    "Введите пароль":!($this->password===$this->double_password)?
-                    "Пароли не совпадают":true,
-           'foto'=>true,
-       ];
-       $result=0;
-     foreach ($this->errorMessages as $item) if ($item===true) $result++;
 
-     return $result===count($this->errorMessages);
-
-
-   }
     private function quote(){
         $this->first_name=$this->db->quote($this->first_name);
         $this->middle_name=$this->db->quote($this->middle_name);
@@ -66,7 +43,9 @@ class User
         $this->status=$this->db->quote($this->status);
 }
 
-   public function create(){
+
+
+    public function create(){
 
        $sql="INSERT INTO ".self::TABLE."
             ( first_name, middle_name, last_name, email, password, foto, type, status) 
@@ -80,7 +59,6 @@ class User
             '$this->type',
             '$this->status'
            )";
-
        $result=$this->db->exec($sql);
        if(!$result)
           throw new  Exception("Не удалось создать пользователя");
@@ -99,7 +77,6 @@ class User
 
     }
     public function getType(){
-
     }
     public function setType(){
 
