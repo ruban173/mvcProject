@@ -3,17 +3,17 @@
 
 class User
 {
+   public $id;
    public $first_name;
    public $middle_name;
    public $last_name;
    public $email;
    public $password;
-   public $double_password;
-   public $foto;
+   public $photo;
 
     private $db;
-
-   const TABLE="users";
+    private $_user;
+    const TABLE="users";
 
    function __construct()
    {
@@ -31,20 +31,15 @@ class User
 
    }
 
+    public function __sleep()
+    {
+        return ['first_name','middle_name','last_name','email','password','foto'];
+    }
 
-    private function quote(){
-        $this->first_name=$this->db->quote($this->first_name);
-        $this->middle_name=$this->db->quote($this->middle_name);
-        $this->last_name=$this->db->quote($this->last_name);
-        $this->email=$this->db->quote( $this->email);
-        $this->password=$this->db->quote($this->password);
-        $this->foto=$this->db->quote($this->foto);
-        $this->type=$this->db->quote($this->type);
-        $this->status=$this->db->quote($this->status);
-}
-
-
-
+    public function __wakeup()
+    {
+      //  return $this->first_name;
+    }
     public function create(){
 
        $sql="INSERT INTO ".self::TABLE."
@@ -55,7 +50,7 @@ class User
             '$this->last_name',
             '$this->email',
             '$this->password', 
-            '$this->foto',
+            '$this->photo',
             '$this->type',
             '$this->status'
            )";
@@ -64,6 +59,21 @@ class User
           throw new  Exception("Не удалось создать пользователя");
        return true;
    }
+
+   public function findUserEmail($email){
+       $sql=  "SELECT * FROM ".self::TABLE."  WHERE email='$email' ;";
+       $result=$this->db->query($sql);
+       $this->_user=$result->fetchObject("User");
+       if($this->_user==null) return false;
+       return $this->_user;
+   }
+    public function findUserPassword($password){
+
+        if($this->_user->password===$password) return $this->_user;
+        return false;
+    }
+
+
     public function update(){
 
     }
@@ -80,6 +90,16 @@ class User
     }
     public function setType(){
 
+    }
+
+    public static function getUser(){
+        if (!self::isGuest()) return unserialize($_COOKIE['user']);
+        return false;
+    }
+
+    public static function isGuest(){
+        if ($_COOKIE['user']) return false;
+        return true;
     }
 
 }

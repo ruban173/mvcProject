@@ -4,7 +4,9 @@
 abstract class Form
 {
 
-    public $errorMessages;
+    public $errorMessages=null;
 
     public function validate(){}
+
+
 }

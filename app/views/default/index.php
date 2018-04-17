@@ -34,7 +34,11 @@ $user->email="email@email.ru";
 
 $user->password="123456";
 $user->_remembe=true;
-print_r($user->login());
+$user->login();
+//$user->logout();
+//print_r($user->login());
+print_r(unserialize($_COOKIE[user]));
+
 
 //print_r($user->validate());
 

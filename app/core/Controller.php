@@ -10,14 +10,14 @@ class Controller implements IController
         $this->views=new Views();
     }
 
-    function render($path){
-
+    function render($path,$model=null){
+        $this->views->model=$model;
         $body=$this->views->getContent($path);
         FrontController::getInstance()->setBody($body);
     }
 
-    function redirect(){
-         header("location:{$_SERVER[REDIRECT_URL ]}");
+    function redirect($url=null){
+         header("location:http://{$_SERVER[SERVER_NAME ]}/$url");
     }
 
 }

@@ -10,24 +10,25 @@ class LoginForm extends Form
 
     private $_user;
 
-    function __construct()
-    {
-    }
 
-    public function getUser(){
-        $sql=  "SELECT * FROM ".self::TABLE."  WHERE email='$this->email' AND password='$this->password' ;";
-        $result=$this->db->query($sql);
-        $this->_user=$result->fetchObject("User");
-        if($this->_user==null) return false;
-        return $this->_user;
-    }
     public function login(){
-        if ($this->getUser())
-            return ($this->_remembe)?setcookie("user",serialize($this->_user),time()+3600*24):
-                setcookie("user",serialize($this->_user));
+        $user=new User();
+        if($user->findUserEmail($this->email)){
+                $this->_user=$user->findUserPassword(md5($this->password));
+                if($this->_user) {
+                    $obj=serialize($this->_user);
+                    if($this->_remembe)setcookie("user", $obj,time()+3600*24);
+                         else setcookie("user", $obj);
+                         return true;
+                }
+              else $this->errorMessages=['password'=>'Неверный пароль!'];
+        }
+        else $this->errorMessages=['login'=>'Неверный Email!'];
+        return false;
     }
     public function logout(){
-
+        if(!User::isGuest())
+             setcookie("user",serialize($this->_user),time()-3600*24);
     }
     public function validate()
     {
